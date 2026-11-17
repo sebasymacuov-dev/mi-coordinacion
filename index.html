@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi Coordinación · UVM Campus Toluca</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="barra">
+    <div class="marca">
+      <h1>Mi Coordinación</h1>
+      <span class="marca-campus">UVM Campus Toluca</span>
+    </div>
+    <div id="sesion" hidden>
+      <span id="sesion-nombre"></span>
+      <button id="btn-salir" class="btn-texto" type="button">Salir</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- PORTADA (solo antes de entrar) -->
+    <section id="hero" class="hero">
+      <div class="hero-texto">
+        <h2>Tu voz llega a coordinación</h2>
+        <p>Envía una queja o solicitud, revisa en qué paso va y lee la respuesta, todo en un solo lugar.</p>
+      </div>
+      <!-- Para usar una foto real del campus, guarda tu imagen como img/campus.jpg -->
+      <svg class="hero-dibujo" viewBox="0 0 640 240" role="img" aria-label="Ilustración de un edificio de campus con árboles">
+        <rect width="640" height="240" fill="#dbeafa"/>
+        <circle cx="560" cy="48" r="26" fill="#f5b82e"/>
+        <rect y="196" width="640" height="44" fill="#9ccfbf"/>
+        <!-- edificio -->
+        <rect x="170" y="86" width="300" height="110" fill="#ffffff" stroke="#14263b" stroke-width="3"/>
+        <polygon points="150,86 320,34 490,86" fill="#14263b"/>
+        <rect x="150" y="86" width="340" height="10" fill="#f5b82e"/>
+        <g fill="#14263b">
+          <rect x="196" y="110" width="22" height="86"/><rect x="246" y="110" width="22" height="86"/>
+          <rect x="372" y="110" width="22" height="86"/><rect x="422" y="110" width="22" height="86"/>
+        </g>
+        <rect x="294" y="130" width="52" height="66" fill="#0f766e"/>
+        <circle cx="320" cy="64" r="10" fill="#f5b82e"/>
+        <!-- árboles -->
+        <g>
+          <rect x="68" y="150" width="10" height="48" fill="#6b4f3a"/><circle cx="73" cy="138" r="32" fill="#2f8f6b"/>
+          <rect x="562" y="156" width="10" height="42" fill="#6b4f3a"/><circle cx="567" cy="144" r="28" fill="#2f8f6b"/>
+        </g>
+      </svg>
+    </section>
+
+    <!-- ENTRAR -->
+    <section id="vista-login" class="panel panel-angosto">
+      <h2>Entrar</h2>
+      <form id="form-login">
+        <fieldset class="roles">
+          <legend>¿Quién eres?</legend>
+          <label><input type="radio" name="rol" value="alumno" checked> Alumno o familia</label>
+          <label><input type="radio" name="rol" value="coordinacion"> Coordinación</label>
+        </fieldset>
+
+        <div id="campos-alumno">
+          <label for="login-nombre">Nombre del alumno</label>
+          <input id="login-nombre" type="text" autocomplete="name">
+          <label for="login-grupo">Grupo</label>
+          <input id="login-grupo" type="text" placeholder="Ej. 3°B">
+        </div>
+
+        <div id="campos-coord" hidden>
+          <label for="login-pin">PIN de coordinación</label>
+          <input id="login-pin" type="password" inputmode="numeric">
+        </div>
+
+        <p id="login-error" class="error" role="alert" hidden></p>
+        <button class="btn" type="submit">Entrar</button>
+      </form>
+    </section>
+
+    <!-- VISTA ALUMNO -->
+    <section id="vista-alumno" class="dos-columnas" hidden>
+      <div class="panel">
+        <h2>Enviar una queja o solicitud</h2>
+        <form id="form-solicitud">
+          <label for="sol-tipo">Tipo</label>
+          <select id="sol-tipo">
+            <option>Queja</option>
+            <option>Solicitud</option>
+            <option>Sugerencia</option>
+          </select>
+
+          <label for="sol-asunto">Asunto</label>
+          <input id="sol-asunto" type="text" maxlength="80" required>
+
+          <label for="sol-detalle">Cuéntanos qué pasó</label>
+          <textarea id="sol-detalle" rows="5" maxlength="1000" required></textarea>
+
+          <button class="btn" type="submit">Enviar a coordinación</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>Mis solicitudes</h2>
+        <div id="lista-alumno" class="lista"></div>
+      </div>
+    </section>
+
+    <!-- VISTA COORDINACIÓN -->
+    <section id="vista-coord" class="panel" hidden>
+      <div class="encabezado-lista">
+        <h2>Solicitudes recibidas</h2>
+        <div>
+          <label for="filtro-estado" class="solo-lectores">Filtrar por estado</label>
+          <select id="filtro-estado">
+            <option value="todas">Todas</option>
+            <option value="recibida">Recibidas</option>
+            <option value="revision">En revisión</option>
+            <option value="resuelta">Resueltas</option>
+          </select>
+        </div>
+      </div>
+      <div id="lista-coord" class="lista"></div>
+    </section>
+  </main>
+
+  <!-- SOBRE EL CAMPUS -->
+  <section id="info-campus" class="info">
+    <h2>Sobre el campus</h2>
+    <div class="info-rejilla">
+      <article>
+        <h3>Universidad del Valle de México</h3>
+        <p>Universidad privada con varios campus en el país, fundada en 1960.</p>
+      </article>
+      <article>
+        <h3>Campus Toluca</h3>
+        <p>Abrió sus puertas en 2003 y se ubica al suroriente de la ciudad de Toluca de Lerdo.</p>
+      </article>
+      <article>
+        <h3>Oferta académica</h3>
+        <p>Licenciaturas, ingenierías, carreras técnicas y posgrados, en modalidad presencial, en línea o ejecutiva.</p>
+      </article>
+      <article>
+        <h3>Biblioteca</h3>
+        <p>Préstamo a domicilio e interbibliotecario, catálogo electrónico y salas de consulta con cubículos.</p>
+      </article>
+      <article>
+        <h3>Vida universitaria</h3>
+        <p>Actividades deportivas, culturales y académicas dentro del campus.</p>
+      </article>
+      <article id="contacto" hidden>
+        <h3>Contacto</h3>
+        <ul id="contacto-lista"></ul>
+      </article>
+    </div>
+  </section>
+
+  <footer class="pie">
+    Proyecto escolar independiente. No es una aplicación oficial de la UVM.
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
